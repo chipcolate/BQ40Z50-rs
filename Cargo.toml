@@ -1,0 +1,14 @@
+[package]
+name = "bq40z50"
+description = "Rust driver for Texas Instrument BQ40Z50 battery manager."
+version = "0.1.0"
+authors = ["Patrick Jusic <patrick.jusic@protonmail.com>"]
+categories = ["embedded", "hardware-support", "battery"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/uspaceit/BQ40Z50-rs"
+
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
