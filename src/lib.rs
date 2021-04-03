@@ -1,4 +1,5 @@
 #![no_std]
+use byteorder::{ByteOrder, LittleEndian};
 use embedded_hal::blocking::i2c::WriteRead;
 
 /// I2C address
@@ -57,16 +58,77 @@ where
         Ok(bq40z50)
     }
 
-    fn get_voltage(&mut self) -> Result<u8, Error<I2cError>> {
+    pub fn get_temperature(&mut self) -> Result<f32, Error<I2cError>> {
         let mut buffer = [0u8; 2];
-        self.i2c.write_read(Address::Dev as u8, &[Cmd::VoltageReg as u8], &mut buffer)?;
-        Ok(buffer[0])
+        self.i2c.write_read(
+            Address::Dev as u8,
+            &[Cmd::TemperatureReg as u8],
+            &mut buffer,
+        )?;
+        Ok(convert_temperature(LittleEndian::read_u16(&buffer[0..2])))
     }
+
+    pub fn get_voltage(&mut self) -> Result<u32, Error<I2cError>> {
+        let mut buffer = [0u8; 2];
+        self.i2c
+            .write_read(Address::Dev as u8, &[Cmd::VoltageReg as u8], &mut buffer)?;
+        Ok(LittleEndian::read_u32(&buffer[0..2]))
+    }
+
+    pub fn get_current(&mut self) -> Result<u32, Error<I2cError>> {
+        let mut buffer = [0u8; 2];
+        self.i2c
+            .write_read(Address::Dev as u8, &[Cmd::CurrentReg as u8], &mut buffer)?;
+        Ok(LittleEndian::read_u32(&buffer[0..2]))
+    }
+
+    pub fn get_cell_voltage_1(&mut self) -> Result<u32, Error<I2cError>> {
+        let mut buffer = [0u8; 2];
+        self.i2c.write_read(
+            Address::Dev as u8,
+            &[Cmd::CellVoltage1Reg as u8],
+            &mut buffer,
+        )?;
+        Ok(LittleEndian::read_u32(&buffer[0..2]))
+    }
+
+    pub fn get_cell_voltage_2(&mut self) -> Result<u32, Error<I2cError>> {
+        let mut buffer = [0u8; 2];
+        self.i2c.write_read(
+            Address::Dev as u8,
+            &[Cmd::CellVoltage2Reg as u8],
+            &mut buffer,
+        )?;
+        Ok(LittleEndian::read_u32(&buffer[0..2]))
+    }
+
+    pub fn get_cell_voltage_3(&mut self) -> Result<u32, Error<I2cError>> {
+        let mut buffer = [0u8; 2];
+        self.i2c.write_read(
+            Address::Dev as u8,
+            &[Cmd::CellVoltage3Reg as u8],
+            &mut buffer,
+        )?;
+        Ok(LittleEndian::read_u32(&buffer[0..2]))
+    }
+
+    pub fn get_cell_voltage_4(&mut self) -> Result<u32, Error<I2cError>> {
+        let mut buffer = [0u8; 2];
+        self.i2c.write_read(
+            Address::Dev as u8,
+            &[Cmd::CellVoltage4Reg as u8],
+            &mut buffer,
+        )?;
+        Ok(LittleEndian::read_u32(&buffer[0..2]))
+    }
+}
+
+fn convert_temperature(raw: u16) -> f32 {
+    raw as f32 / 10.0 - 273.15
 }
 
 impl<E> From<E> for Error<E> {
     fn from(error: E) -> Self {
         Error::I2cError(error)
     }
- }
- 
+}
