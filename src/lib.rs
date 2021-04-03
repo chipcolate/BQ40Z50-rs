@@ -67,58 +67,58 @@ where
         Ok(convert_temperature(LittleEndian::read_u16(&buffer[0..2])))
     }
 
-    pub fn get_voltage(&mut self) -> Result<u32, Error<I2cError>> {
+    pub fn get_voltage(&mut self) -> Result<u16, Error<I2cError>> {
         let mut buffer = [0u8; 2];
         self.i2c
             .write_read(Address::Dev as u8, &[Cmd::VoltageReg as u8], &mut buffer)?;
-        Ok(LittleEndian::read_u32(&buffer[0..2]))
+        Ok(LittleEndian::read_u16(&buffer[0..2]))
     }
 
-    pub fn get_current(&mut self) -> Result<u32, Error<I2cError>> {
+    pub fn get_current(&mut self) -> Result<u16, Error<I2cError>> {
         let mut buffer = [0u8; 2];
         self.i2c
             .write_read(Address::Dev as u8, &[Cmd::CurrentReg as u8], &mut buffer)?;
-        Ok(LittleEndian::read_u32(&buffer[0..2]))
+        Ok(LittleEndian::read_u16(&buffer[0..2]))
     }
 
-    pub fn get_cell_voltage_1(&mut self) -> Result<u32, Error<I2cError>> {
+    pub fn get_cell_voltage_1(&mut self) -> Result<u16, Error<I2cError>> {
         let mut buffer = [0u8; 2];
         self.i2c.write_read(
             Address::Dev as u8,
             &[Cmd::CellVoltage1Reg as u8],
             &mut buffer,
         )?;
-        Ok(LittleEndian::read_u32(&buffer[0..2]))
+        Ok(LittleEndian::read_u16(&buffer[0..2]))
     }
 
-    pub fn get_cell_voltage_2(&mut self) -> Result<u32, Error<I2cError>> {
+    pub fn get_cell_voltage_2(&mut self) -> Result<u16, Error<I2cError>> {
         let mut buffer = [0u8; 2];
         self.i2c.write_read(
             Address::Dev as u8,
             &[Cmd::CellVoltage2Reg as u8],
             &mut buffer,
         )?;
-        Ok(LittleEndian::read_u32(&buffer[0..2]))
+        Ok(LittleEndian::read_u16(&buffer[0..2]))
     }
 
-    pub fn get_cell_voltage_3(&mut self) -> Result<u32, Error<I2cError>> {
+    pub fn get_cell_voltage_3(&mut self) -> Result<u16, Error<I2cError>> {
         let mut buffer = [0u8; 2];
         self.i2c.write_read(
             Address::Dev as u8,
             &[Cmd::CellVoltage3Reg as u8],
             &mut buffer,
         )?;
-        Ok(LittleEndian::read_u32(&buffer[0..2]))
+        Ok(LittleEndian::read_u16(&buffer[0..2]))
     }
 
-    pub fn get_cell_voltage_4(&mut self) -> Result<u32, Error<I2cError>> {
+    pub fn get_cell_voltage_4(&mut self) -> Result<u16, Error<I2cError>> {
         let mut buffer = [0u8; 2];
         self.i2c.write_read(
             Address::Dev as u8,
             &[Cmd::CellVoltage4Reg as u8],
             &mut buffer,
         )?;
-        Ok(LittleEndian::read_u32(&buffer[0..2]))
+        Ok(LittleEndian::read_u16(&buffer[0..2]))
     }
 }
 
