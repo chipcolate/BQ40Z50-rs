@@ -7,7 +7,7 @@ fn main() {
   println!("Initializing BQ40Z50");
 
   let dev = I2c::new().unwrap();
-  let mut bms = BQ40Z50::new(dev).unwrap();
+  let mut bms = BQ40Z50::new(dev);
 
   loop {
     let temp = bms.get_temperature().unwrap();

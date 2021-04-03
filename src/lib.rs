@@ -53,9 +53,8 @@ impl<I2C, I2cError> BQ40Z50<I2C>
 where
     I2C: WriteRead<Error = I2cError>,
 {
-    pub fn new(i2c: I2C) -> Result<BQ40Z50<I2C>, Error<I2cError>> {
-        let bq40z50 = BQ40Z50 { i2c: i2c };
-        Ok(bq40z50)
+    pub fn new(i2c: I2C) -> BQ40Z50<I2C> {
+        BQ40Z50 { i2c: i2c }
     }
 
     pub fn get_temperature(&mut self) -> Result<f32, Error<I2cError>> {

@@ -1,7 +1,7 @@
 [package]
 name = "bq40z50"
 description = "Rust driver for Texas Instrument BQ40Z50 battery manager."
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Patrick Jusic <patrick.jusic@protonmail.com>"]
 categories = ["embedded", "hardware-support", "no-std"]
 license = "MIT OR Apache-2.0"
